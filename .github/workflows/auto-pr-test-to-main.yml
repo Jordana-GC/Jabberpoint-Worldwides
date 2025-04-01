@@ -1,0 +1,30 @@
+name: Auto PR from Test to Main
+
+on:
+  workflow_run:
+    workflows: ["Test CI"] 
+    types:
+      - completed
+
+jobs:
+  create-pull-request:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: test
+          title: "Auto PR: Merge Test into Main"
+          body: |
+            **Automated pull request**  
+            All tests passed in `test` branch.  
+            Ready for review & merge into `main`.  
+          labels: automated, test-passed
+          reviewers: 'Faziee, Jordana-GC'  
+          assignees: 'Faziee, Jordana-GC'
