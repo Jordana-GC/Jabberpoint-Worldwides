@@ -32,8 +32,8 @@ jobs:
 
       - name: Run Full Tests
         run: mvn test
-
+        
       - name: Deploy to GitHub Packages
-        run: mvn deploy -s $GITHUB_WORKSPACE/.github/maven/settings.xml -Denv=production
+        run: mvn deploy -s $GITHUB_WORKSPACE/.github/maven/settings.xml -Denv=production -X
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
