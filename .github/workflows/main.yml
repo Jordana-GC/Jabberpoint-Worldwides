@@ -3,7 +3,7 @@ name: Main CI and Deployment
 on:
   push:
     branches:
-      - main
+      - main 
 
 jobs:
   validate-and-deploy:
@@ -32,14 +32,8 @@ jobs:
 
       - name: Run Full Tests
         run: mvn test
-
-      - name: Debug GitHub Actor
-        run: echo "GitHub Actor: ${{ github.actor }}"
-
-      - name: Debug GitHub Token (Masked)
-        run: echo "GitHub Token: (masked)"
-
+        
       - name: Deploy to GitHub Packages
         run: mvn deploy -s $GITHUB_WORKSPACE/.github/maven/settings.xml -Denv=production -X
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
