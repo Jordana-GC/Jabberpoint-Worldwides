@@ -6,7 +6,7 @@
 
     <groupId>org.worldwides</groupId>
     <artifactId>Jabberpoint-Worldwides</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-20250402.123456</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -19,7 +19,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/jordana-gc/Jabberpoint-Worldwides</url>
+            <url>https://maven.pkg.github.com/Jordana-GC/Jabberpoint-Worldwides</url>
         </repository>
     </distributionManagement>
 
