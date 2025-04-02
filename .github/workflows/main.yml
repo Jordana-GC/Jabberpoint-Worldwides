@@ -17,6 +17,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Clean existing packages (important!)
+        run: |
+              # Delete any existing package versions to prevent conflicts
+              curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              https://api.github.com/user/packages/maven/org.worldwides.Jabberpoint-Worldwides/versions
+
       - name: Set up JDK 11
         uses: actions/setup-java@v4
         with:
