@@ -8,7 +8,6 @@ on:
 jobs:
   validate-and-deploy:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
       packages: write
@@ -17,19 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Clean existing packages (important!)
-        run: |
-              # Delete any existing package versions to prevent conflicts
-              curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              https://api.github.com/user/packages/maven/org.worldwides.Jabberpoint-Worldwides/versions
-
       - name: Set up JDK 11
         uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
           server-id: github
-          settings-path: ${{ github.workspace }} 
+          settings-path: ${{ github.workspace }}
 
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -40,23 +33,17 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with Maven
-        run: mvn -B clean package 
-
-      - name: Run Full Tests
-        run: mvn test
-
-      - name: List existing packages (debug)
-        run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/user/packages?package_type=maven \
-          | grep "Jabberpoint-Worldwides"
+        run: mvn -B clean package
 
       - name: Deploy to GitHub Packages
-        run: mvn deploy -s ${{ github.workspace }}/settings.xml
+        run: |
+          # First try to delete any existing package
+          curl -s -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/Jordana-GC/Jabberpoint-Worldwides/packages/maven/org.worldwides.Jabberpoint-Worldwides/versions \
+          || echo "No existing package to delete"
+          
+          # Then deploy
+          mvn -B deploy -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
-      - name: Simulate production deployment
-        run: |
-              echo "Deploying to PRODUCTION environment"
-              echo "Deployment successful!"
