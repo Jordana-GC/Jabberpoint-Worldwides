@@ -42,4 +42,4 @@ jobs:
       - name: Deploy to GitHub Packages
         run: mvn deploy -s $GITHUB_WORKSPACE/.github/maven/settings.xml -Denv=production -X
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
