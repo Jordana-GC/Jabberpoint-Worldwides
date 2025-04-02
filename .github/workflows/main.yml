@@ -37,13 +37,11 @@ jobs:
 
       - name: Deploy to GitHub Packages
         run: |
-          # First try to delete any existing package
-          curl -s -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/Jordana-GC/Jabberpoint-Worldwides/packages/maven/org.worldwides.Jabberpoint-Worldwides/versions \
+          curl -s -X DELETE -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/user/packages/maven/org.worldwides.Jabberpoint-Worldwides/versions \
           || echo "No existing package to delete"
           
-          # Then deploy
-          mvn -B deploy -DskipTests
+          mvn -B deploy -DskipTests -X
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
