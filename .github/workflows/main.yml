@@ -39,6 +39,12 @@ jobs:
       - name: Run Full Tests
         run: mvn test
 
+      - name: List existing packages (debug)
+        run: |
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/user/packages?package_type=maven \
+          | grep "Jabberpoint-Worldwides"
+
       - name: Deploy to GitHub Packages
         run: mvn deploy -s ${{ github.workspace }}/settings.xml
         env:
