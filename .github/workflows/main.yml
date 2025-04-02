@@ -1,22 +1,20 @@
-name: Main CI and Deployment
+name: Deploy to GitHub Packages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  validate-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 11
+      - uses: actions/checkout@v4
+      
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: '11'
@@ -24,26 +22,8 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Build with Maven
-        run: mvn -B clean package
-
-      - name: Deploy to GitHub Packages
-        run: |
-          curl -s -X DELETE \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/user/packages/maven/org.worldwides.Jabberpoint-Worldwides/versions \
-            || echo "No existing package to delete"
-          
-          mvn -B deploy -s ${{ github.workspace }}/settings.xml
+      - name: Build and Deploy
+        run: mvn -B deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
