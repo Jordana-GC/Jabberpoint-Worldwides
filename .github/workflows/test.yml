@@ -9,37 +9,46 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    env:
+      WORKING_DIR: ./project-root
     steps:
-      - name: Checkout Repository
+      - name: Checkout with Debug
         uses: actions/checkout@v4
         with:
           ref: test
           fetch-depth: 0
-          path: project-root 
-
-      - name: Verify POM Exists
-        working-directory: ./project-root
+          path: ${{ env.WORKING_DIR }}
+        
+      - name: Nuclear File Verification
         run: |
-          echo "Current directory: $(pwd)"
-          ls -la
-          if [ ! -f "pom.xml" ]; then
-            echo "::error::pom.xml missing!"
+          echo "=== FULL DIRECTORY TREE ==="
+          find ${{ env.WORKING_DIR }} -type d | sort
+          echo "=== POM VERIFICATION ==="
+          if [ -f "${{ env.WORKING_DIR }}/pom.xml" ]; then
+            echo "POM FOUND at ${{ env.WORKING_DIR }}/pom.xml"
+            echo "POM CONTENTS:"
+            head -n 20 "${{ env.WORKING_DIR }}/pom.xml"
+          else
+            echo "::error::POM NOT FOUND IN ${{ env.WORKING_DIR }}!"
+            echo "Current files:"
+            ls -la ${{ env.WORKING_DIR }}
             exit 1
           fi
 
-      - name: Set up JDK 17
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        working-directory: ./project-root
-        run: mvn clean install -DskipTests
+      - name: Build with Maven (Debug Mode)
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          echo "=== MAVEN DEBUG ==="
+          mvn help:effective-pom -Doutput=effective-pom.xml
+          head -n 20 effective-pom.xml
+          mvn clean install -DskipTests -X
 
       - name: Run Tests
-        working-directory: ./project-root
+        working-directory: ${{ env.WORKING_DIR }}
         run: mvn test
