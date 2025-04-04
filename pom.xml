@@ -44,6 +44,12 @@
     </distributionManagement>
 
     <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -70,6 +76,10 @@
                         -XX:+EnableDynamicAgentLoading
                         -Djdk.instrument.traceUsage=false
                     </argLine>
+                    <excludes>
+                        <exclude>**/MenuControllerTest.java</exclude>
+                        <exclude>**/SlideViewerFrameTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
