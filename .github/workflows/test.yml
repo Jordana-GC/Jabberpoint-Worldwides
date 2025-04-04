@@ -4,19 +4,31 @@ on:
   workflow_run:
     workflows: ["Auto-Merge Dev to Test"]
     types: [completed]
-    branches: [dev]
+  workflow_dispatch:  
 
 jobs:
   test:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.outputs.was_merged == 'true' }}
+    if: >-
+      ${{ 
+        github.event_name == 'workflow_dispatch' ||
+        (github.event.workflow_run.conclusion == 'success' &&
+         github.event.workflow_run.outputs.was_merged == 'true')
+      }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Test Branch  
         uses: actions/checkout@v4
+        with:
+          ref: test
+
+      - name: Debug Workflow Run  
+        run: |
+          echo "Event: ${{ toJson(github.event) }}"
+          echo "Workflow Run Outputs: ${{ toJson(github.event.workflow_run.outputs) }}"
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
