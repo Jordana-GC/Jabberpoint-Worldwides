@@ -3,11 +3,14 @@ name: Auto-Merge Dev to Test
 on:
   push:
     branches: [dev]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     outputs:
       was_merged: ${{ steps.merge.outputs.was_merged }}
     steps:
@@ -27,9 +30,9 @@ jobs:
         run: |
           git checkout test
           if git merge --no-ff dev -m "Auto-merged dev into test"; then
-            git push
+            git push origin test  
             echo "was_merged=true" >> $GITHUB_OUTPUT
-            echo "MERGE_SUCCESS=true" >> $GITHUB_ENV 
+            echo "MERGE_SUCCESS=true" >> $GITHUB_ENV
           else
             echo "was_merged=false" >> $GITHUB_OUTPUT
             exit 1
