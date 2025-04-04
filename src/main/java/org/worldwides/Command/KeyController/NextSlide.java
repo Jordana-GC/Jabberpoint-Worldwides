@@ -1,7 +1,7 @@
-package Command.KeyController;
+package org.worldwides.Command.KeyController;
 
-import Command.Command;
-import Presentation.Presentation;
+import org.worldwides.Command.Command;
+import org.worldwides.Presentation.Presentation;
 
 public class NextSlide extends Command
 {

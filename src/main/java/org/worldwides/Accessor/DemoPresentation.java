@@ -1,8 +1,8 @@
-package Accessor;
+package org.worldwides.Accessor;
 
-import Composite.BitmapItem;
-import Composite.Slide;
-import Presentation.Presentation;
+import org.worldwides.Composite.BitmapItem;
+import org.worldwides.Composite.Slide;
+import org.worldwides.Presentation.Presentation;
 
 /**
  * Een ingebouwde demo-presentatie

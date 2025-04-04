@@ -1,9 +1,7 @@
-package Composite;
+package org.worldwides.Composite;
 
-import Composite.Slide;
-import Composite.SlideItem;
-import FactoryMethod.Style;
-import FactoryMethod.StyleFactory;
+import org.worldwides.FactoryMethod.Style;
+import org.worldwides.FactoryMethod.StyleFactory;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;

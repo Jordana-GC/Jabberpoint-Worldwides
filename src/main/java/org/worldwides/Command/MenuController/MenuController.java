@@ -1,4 +1,4 @@
-package Command.MenuController;
+package org.worldwides.Command.MenuController;
 
 import java.awt.MenuBar;
 import java.awt.Frame;
@@ -8,10 +8,10 @@ import java.awt.MenuShortcut;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import Command.Command;
-import Command.KeyController.NextSlide;
-import Command.KeyController.PreviousSlide;
-import Presentation.Presentation;
+import org.worldwides.Command.Command;
+import org.worldwides.Command.KeyController.NextSlide;
+import org.worldwides.Command.KeyController.PreviousSlide;
+import org.worldwides.Presentation.Presentation;
 
 /**
  * <p>The controller for the Menu</p>

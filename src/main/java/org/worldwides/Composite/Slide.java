@@ -1,4 +1,4 @@
-package Composite;
+package org.worldwides.Composite;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
