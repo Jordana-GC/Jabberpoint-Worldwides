@@ -5,7 +5,8 @@ import java.awt.*;
 
 public class StyleChooser
 {
-    public static String showStyleDialog(Frame frame) {
+    public static String showStyleDialog(Frame frame)
+    {
         String[] styles = {
                 "Professional (Blue Theme)",
                 "Creative (Colorful)",
