@@ -30,7 +30,7 @@ jobs:
         run: |
           git checkout test
           if git merge --no-ff dev -m "Auto-merged dev into test"; then
-            git push origin test  
+            git push origin test
             echo "was_merged=true" >> $GITHUB_OUTPUT
             echo "MERGE_SUCCESS=true" >> $GITHUB_ENV
           else
