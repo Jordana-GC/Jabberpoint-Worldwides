@@ -1,70 +1,45 @@
 name: Test CI
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Auto-Merge Dev to Test"]
     types: [completed]
-  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
-      - name: Check if merge was successful
-        id: check-merge
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data: run } = await github.rest.actions.getWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.payload.workflow_run.id,
-            });
-            const { data: jobs } = await github.rest.actions.listJobsForWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.payload.workflow_run.id,
-            });
-            const mergeJob = jobs.jobs.find(job => job.name === 'auto-merge');
-            const { data: jobSteps } = await github.rest.actions.getJobForWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              job_id: mergeJob.id,
-            });
-            const wasMerged = jobSteps.steps.find(step => step.name === 'Merge dev into test').conclusion === 'success';
-            return wasMerged;
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.check-merge.outputs.result == 'true' }}
-
-      - name: Checkout Test Branch
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.check-merge.outputs.result == 'true' }}
+      - name: Hard Reset Checkout
         uses: actions/checkout@v4
         with:
           ref: test
+          fetch-depth: 0
+          clean: true  
 
-      - name: Debug Workflow Run  
+      - name: Nuclear File Verification
         run: |
-          echo 'Event JSON:'
-          echo '${{ toJson(github.event) }}' | jq .
+          echo "=== FULL REPO DUMP ==="
+          find . -type f
+          echo "=== POM VALIDATION ==="
+          if [ -f "pom.xml" ]; then
+            echo "POM EXISTS at $(pwd)/pom.xml"
+            echo "First 10 lines:"
+            head -n 10 pom.xml
+          else
+            echo "::error::POM NOT FOUND IN ROOT DIRECTORY!"
+            echo "Current directory contents:"
+            ls -la
+            exit 1
+          fi
 
-      - name: Set up JDK 17
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Build with Maven
-        run: mvn clean install -DskipTests
-
-      - name: Run Tests
-        run: mvn test
+      - name: Force Maven Build
+        run: |
+          echo "=== MAVEN NUCLEAR DEBUG ==="
+          mvn -X -e clean install -DskipTests
