@@ -69,62 +69,37 @@ public class Slide extends SlideItem{
 		return this.items.size();
 	}
 
-	// draw the slide
-//	public void draw(Graphics graphics, Rectangle area, ImageObserver imageObserver)
-//	{
-//		float scale = getScale(area);
-//	    int y = area.y;
-//	// De titel wordt apart behandeld
-//	    SlideItem slideItem = new TextItem(0, getTitle());//changed name due to change in for loop and for consistency
-//
-//		int slideItemLevel = slideItem.getLevel();
-//
-//	    //slideItem.draw(area.x, y, scale, graphics, slideItemLevel, imageObserver);
-//
-//	    //y += slideItem.getBoundingBox(graphics, imageObserver, scale, slideItemLevel).height;
-//
-//	    for (int number=0; number<getSize(); number++)
-//		{
-//	      slideItem = getSlideItems().elementAt(number);
-//		  slideItemLevel = slideItem.getLevel();
-//
-//	      slideItem.draw(area.x, y, scale, graphics, slideItemLevel, imageObserver);
-//	      y += slideItem.getBoundingBox(graphics, imageObserver, scale, slideItemLevel).height;
-//	    }
-//	}
 	@Override
-	public void draw(int x, int y, float scale, Graphics graphics, int styleLevel, ImageObserver observer)
+	public void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer)
 	{
 		SlideItem slideItem = new TextItem(0, getTitle());
 
-		slideItem.draw(x, y, scale, graphics, styleLevel, observer);
-		y += slideItem.getBoundingBox(graphics, observer, scale, styleLevel).height;
+		slideItem.draw(x, y, scale, graphics, observer);
+		y += slideItem.getBoundingBox(graphics, observer, scale).height;
 
 		for (int number=0; number<getSize(); number++)
 		{
 			slideItem = getSlideItems().elementAt(number);
+			slideItem.draw(x, y, scale, graphics, observer);
 
-			slideItem.draw(x, y, scale, graphics, styleLevel, observer);
-
-			y += slideItem.getBoundingBox(graphics, observer, scale, styleLevel).height;
+			y += slideItem.getBoundingBox(graphics, observer, scale).height;
 		}
-
 	}
 
 	@Override
-	public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale, int styleLevel)
+	public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale)
 	{
 		// Get bounding box for the title
 		SlideItem titleItem = new TextItem(0, getTitle());
 
-		Rectangle boundingBox = titleItem.getBoundingBox(graphics, observer, scale, styleLevel);
+		Rectangle boundingBox = titleItem.getBoundingBox(graphics, observer, scale);
 
 		int width = boundingBox.width;
 		int height = boundingBox.height;
 
 		// Iterate over all slide items and update width & height
 		for (SlideItem item : this.items) {
-			Rectangle itemBox = item.getBoundingBox(graphics, observer, scale, item.getLevel());
+			Rectangle itemBox = item.getBoundingBox(graphics, observer, scale);
 			width = Math.max(width, itemBox.width);
 			height += itemBox.height;
 		}
@@ -137,8 +112,4 @@ public class Slide extends SlideItem{
 	{
 		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
 	}
-
-
-
-
 }
