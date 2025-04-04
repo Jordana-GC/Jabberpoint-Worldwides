@@ -30,6 +30,10 @@ public class Slide extends SlideItem{
 	// Voeg een Composite.SlideItem toe
 	public void append(SlideItem item)
 	{
+		if (item == null)
+		{
+			throw new IllegalArgumentException("Can not be null");
+		}
 		this.items.addElement(item);
 	}
 

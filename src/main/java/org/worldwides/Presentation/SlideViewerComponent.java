@@ -48,6 +48,21 @@ public class SlideViewerComponent extends JComponent {
 		this.frame = frame;
 	}
 
+	public Slide getSlide()
+	{
+		return this.slide;
+	}
+
+	public Presentation getPresentation()
+	{
+		return this.presentation;
+	}
+
+	public JFrame getFrame()
+	{
+		return this.frame;
+	}
+
 	public Dimension getPreferredSize()
 	{
 		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
@@ -73,9 +88,9 @@ public class SlideViewerComponent extends JComponent {
 		graphics.setColor(BGCOLOR);
 		graphics.fillRect(0, 0, getSize().width, getSize().height);
 
-		if (this.presentation.getSlideNumber() < 0 || slide == null)
+		if (this.presentation.getSlideNumber() < 0 || this.slide == null)
 		{
-			return;
+			throw new IllegalArgumentException("Please ensure everything is valid");
 		}
 
 		graphics.setFont(this.labelFont);

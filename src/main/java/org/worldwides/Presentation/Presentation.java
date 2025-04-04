@@ -92,6 +92,11 @@ public class Presentation {
 
 	public void append(Slide slide)
 	{
+		if (slide == null)
+		{
+			throw new IllegalArgumentException("Can not be null");
+		}
+
 		this.slides.add(slide);
 	}
 
