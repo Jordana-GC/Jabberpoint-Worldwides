@@ -1,7 +1,7 @@
-package FactoryMethod;
+package org.worldwides.FactoryMethod;
 
-import Composite.BitmapItem;
-import Composite.SlideItem;
+import org.worldwides.Composite.BitmapItem;
+import org.worldwides.Composite.SlideItem;
 
 public class BitmapItemFactory implements SlideItemFactory
 {

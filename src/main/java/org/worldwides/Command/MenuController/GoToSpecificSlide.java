@@ -1,7 +1,7 @@
-package Command.MenuController;
+package org.worldwides.Command.MenuController;
 
-import Command.Command;
-import Presentation.Presentation;
+import org.worldwides.Command.Command;
+import org.worldwides.Presentation.Presentation;
 
 import javax.swing.*;
 

@@ -1,6 +1,6 @@
-package FactoryMethod;
+package org.worldwides.FactoryMethod;
 
-import Composite.SlideItem;
+import org.worldwides.Composite.SlideItem;
 
 public interface SlideItemFactory
 {

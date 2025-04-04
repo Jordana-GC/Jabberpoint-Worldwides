@@ -1,6 +1,4 @@
-package Composite;
-
-import FactoryMethod.StyleFactory;
+package org.worldwides.Composite;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;

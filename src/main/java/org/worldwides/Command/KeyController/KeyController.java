@@ -1,10 +1,10 @@
-package Command.KeyController;
+package org.worldwides.Command.KeyController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 
-import Command.Command;
-import Presentation.Presentation;
+import org.worldwides.Command.Command;
+import org.worldwides.Presentation.Presentation;
 
 /** <p>This is the Command.KeyController.KeyController (KeyListener)</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman

@@ -1,8 +1,8 @@
-package Command.MenuController;
+package org.worldwides.Command.MenuController;
 
-import Command.Command;
-import Presentation.AboutBox;
-import Presentation.Presentation;
+import org.worldwides.Command.Command;
+import org.worldwides.Presentation.AboutBox;
+import org.worldwides.Presentation.Presentation;
 
 import java.awt.*;
 

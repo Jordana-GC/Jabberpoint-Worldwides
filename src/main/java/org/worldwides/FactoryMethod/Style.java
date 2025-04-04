@@ -1,4 +1,4 @@
-package FactoryMethod;
+package org.worldwides.FactoryMethod;
 
 import java.awt.Color;
 import java.awt.Font;

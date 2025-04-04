@@ -1,11 +1,11 @@
-package JabberPoint;
+package org.worldwides.JabberPoint;
 
-import Accessor.*;
-import Presentation.SlideViewerFrame;
-import Presentation.Presentation;
+import org.worldwides.Accessor.Accessor;
+import org.worldwides.Accessor.XMLAccessor;
+import org.worldwides.Presentation.Presentation;
+import org.worldwides.Presentation.SlideViewerFrame;
 
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
 import java.io.IOException;
 
 /** Presentation.JabberPoint Main Programma
