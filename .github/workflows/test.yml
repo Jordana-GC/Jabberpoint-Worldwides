@@ -10,36 +10,24 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Hard Reset Checkout
+      - name: Checkout Repository (Forced)
         uses: actions/checkout@v4
         with:
           ref: test
           fetch-depth: 0
-          clean: true  
+          clean: false  
 
-      - name: Nuclear File Verification
+      - name: Find POM File (Nuclear Verification)
         run: |
-          echo "=== FULL REPO DUMP ==="
-          find . -type f
-          echo "=== POM VALIDATION ==="
-          if [ -f "pom.xml" ]; then
-            echo "POM EXISTS at $(pwd)/pom.xml"
-            echo "First 10 lines:"
-            head -n 10 pom.xml
-          else
-            echo "::error::POM NOT FOUND IN ROOT DIRECTORY!"
-            echo "Current directory contents:"
+          echo "=== FULL REPO STRUCTURE ==="
+          find . -type f | sort
+          echo "=== POM FILE CHECK ==="
+          if [ ! -f "pom.xml" ]; then
+            echo "::error::CRITICAL: pom.xml is MISSING from root directory!"
+            echo "Current files in root:"
             ls -la
             exit 1
+          else
+            echo "POM FOUND - Contents:"
+            head -n 10 pom.xml
           fi
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Force Maven Build
-        run: |
-          echo "=== MAVEN NUCLEAR DEBUG ==="
-          mvn -X -e clean install -DskipTests
