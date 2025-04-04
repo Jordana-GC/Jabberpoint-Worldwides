@@ -54,25 +54,25 @@ public class BitmapItem extends SlideItem
 	}
 
 	@Override
-	public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale, int styleLevel)
+	public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale)
 	{
-		Style style = StyleFactory.createStyle(styleLevel);
+		Style style = StyleFactory.createStyle(getLevel());
 
 		return new Rectangle((int) (style.getIndent() * scale), 0, (int) (this.bufferedImage.getWidth(observer) * scale), ((int) (style.getLeading() * scale)) + (int) (this.bufferedImage.getHeight(observer) * scale));
 	}
 
 	@Override
-	public void draw(int x, int y, float scale, Graphics graphics, int styleLevel, ImageObserver observer)
+	public void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer)
 	{
-		Style style = StyleFactory.createStyle(styleLevel);
+		Style style = StyleFactory.createStyle(getLevel());
+
 		int width = x + (int) (style.getIndent() * scale);
 		int height = y + (int) (style.getLeading() * scale);
 		graphics.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale), (int) (bufferedImage.getHeight(observer)*scale), observer);
-
 	}
 
 	public String toString()
 	{
-		return "Composite.BitmapItem[" + getLevel() + "," + imageName + "]";
+		return "BitmapItem[" + getLevel() + "," + imageName + "]";
 	}
 }

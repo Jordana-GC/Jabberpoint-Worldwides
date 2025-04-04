@@ -46,11 +46,11 @@ public class TextItem extends SlideItem
 
 
 	// return the bounding box of the item
-	public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale, int styleLevel)
+	public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale)
 	{
-		Style style = StyleFactory.createStyle(styleLevel);
+		Style style = StyleFactory.createStyle(getLevel());
 
-		List<TextLayout> layouts = getLayouts(graphics, styleLevel, scale);
+		List<TextLayout> layouts = getLayouts(graphics, scale);
 
 		int xsize = 0, ysize = (int) (style.getLeading() * scale);
 
@@ -71,11 +71,11 @@ public class TextItem extends SlideItem
 		return new Rectangle((int) (style.getIndent() * scale), 0, xsize, ysize );
 	}
 
-	public void draw(int x, int y, float scale, Graphics graphics, int styleLevel, ImageObserver imageObserver)
+	public void draw(int x, int y, float scale, Graphics graphics, ImageObserver imageObserver)
 	{
-		Style style = StyleFactory.createStyle(styleLevel);
+		Style style = StyleFactory.createStyle(getLevel());
 
-		List<TextLayout> layouts = getLayouts(graphics, styleLevel, scale);
+		List<TextLayout> layouts = getLayouts(graphics, scale);
 
 		Point pen = new Point(x + (int)(style.getIndent() * scale),y + (int) (style.getLeading() * scale));
 
@@ -111,12 +111,12 @@ public class TextItem extends SlideItem
 		return attrStr;
 	}
 
-	private List<TextLayout> getLayouts(Graphics graphics, int styleLevel, float scale)
+	private List<TextLayout> getLayouts(Graphics graphics, float scale)
 	{
-		Style style = StyleFactory.createStyle(styleLevel);
+		Style style = StyleFactory.createStyle(getLevel());
 
 		List<TextLayout> layouts = new ArrayList<>();
-		AttributedString attrStr = getAttributedString(styleLevel, scale);
+		AttributedString attrStr = getAttributedString(getLevel(), scale);
     	Graphics2D g2d = (Graphics2D) graphics;
     	FontRenderContext frc = g2d.getFontRenderContext();
     	LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
@@ -133,6 +133,6 @@ public class TextItem extends SlideItem
 
 	public String toString()
 	{
-		return "Composite.TextItem[" + getLevel()+","+getText()+"]";
+		return "TextItem[" + getLevel()+","+getText()+"]";
 	}
 }

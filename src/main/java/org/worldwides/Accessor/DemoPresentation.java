@@ -16,14 +16,14 @@ class DemoPresentation extends Accessor
 
     public void loadFile(Presentation presentation, String unusedFilename)
     {
-        presentation.setTitle("Demo Presentation.Presentation");
+        presentation.setTitle("Demo Presentation");
         Slide slide;
-        slide = new Slide("JabberPoint.JabberPoint", 1);
+        slide = new Slide("JabberPoint", 1);
         slide.appendTextItem(1, "Het Java Presentatie Tool");
         slide.appendTextItem(2, "Copyright (c) 1996-2000: Ian Darwin");
         slide.appendTextItem(2, "Copyright (c) 2000-now:");
         slide.appendTextItem(2, "Gert Florijn en Sylvia Stuurman");
-        slide.appendTextItem(4, "JabberPoint.JabberPoint aanroepen zonder bestandsnaam");
+        slide.appendTextItem(4, "JabberPoint aanroepen zonder bestandsnaam");
         slide.appendTextItem(4, "laat deze presentatie zien");
         slide.appendTextItem(1, "Navigeren:");
         slide.appendTextItem(3, "Volgende slide: PgDn of Enter");
@@ -47,7 +47,7 @@ class DemoPresentation extends Accessor
         slide.appendTextItem(2, "gebruik File->Open uit het menu.");
         slide.appendTextItem(1, " ");
         slide.appendTextItem(1, "Dit is het einde van de presentatie.");
-        slide.append(new BitmapItem(1, "JabberPoint.JabberPoint.jpg"));
+        slide.append(new BitmapItem(1, "JabberPoint.gif"));
         presentation.append(slide);
     }
 

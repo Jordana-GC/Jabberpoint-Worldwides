@@ -17,12 +17,11 @@ import java.awt.image.ImageObserver;
 
 public abstract class SlideItem {
 	private int level;
-	//private StyleFactory styleFactory;//maybe singleton maybe make a static flyaawway strategy state decorater builder code efeciently dont use pattern
+
 
 	public SlideItem(int level)
 	{
 		this.level = level;
-		//this.styleFactory = styleFactory;
 	}
 
 	public int getLevel()
@@ -30,12 +29,7 @@ public abstract class SlideItem {
 		return this.level;
 	}
 
-//	public StyleFactory getStyleFactory()
-//	{
-//		return this.styleFactory;
-//	}
+	public abstract Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale);
 
-	public abstract Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale, int styleLevel);
-
-	public abstract void draw(int x, int y, float scale, Graphics graphics, int styleLevel, ImageObserver observer);
+	public abstract void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer);
 }
