@@ -13,43 +13,20 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Check if merge was successful
-        id: check-merge
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data: run } = await github.rest.actions.getWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.payload.workflow_run.id,
-            });
-            const { data: jobs } = await github.rest.actions.listJobsForWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.payload.workflow_run.id,
-            });
-            const mergeJob = jobs.jobs.find(job => job.name === 'auto-merge');
-            const { data: jobSteps } = await github.rest.actions.getJobForWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              job_id: mergeJob.id,
-            });
-            const wasMerged = jobSteps.steps.find(step => step.name === 'Merge dev into test').conclusion === 'success';
-            core.setOutput('result', wasMerged);
-
       - name: Checkout Repository
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.check-merge.outputs.result == 'true' }}
         uses: actions/checkout@v4
         with:
           ref: test
-          fetch-depth: 0  
+          fetch-depth: 0
+          path: project-root 
 
-      - name: Verify Files Exist
+      - name: Verify POM Exists
+        working-directory: ./project-root
         run: |
-          pwd
+          echo "Current directory: $(pwd)"
           ls -la
           if [ ! -f "pom.xml" ]; then
-            echo "::error::pom.xml not found in root directory!"
+            echo "::error::pom.xml missing!"
             exit 1
           fi
 
@@ -59,16 +36,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
       - name: Build with Maven
+        working-directory: ./project-root
         run: mvn clean install -DskipTests
 
       - name: Run Tests
+        working-directory: ./project-root
         run: mvn test
