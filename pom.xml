@@ -65,10 +65,7 @@
                 <configuration>
                     <argLine>
                         --add-opens java.base/java.lang=ALL-UNNAMED
-<<<<<<< Updated upstream
                         -Djava.awt.headless=true
-=======
->>>>>>> Stashed changes
                         -Xshare:off
                         -XX:+EnableDynamicAgentLoading
                         -Djdk.instrument.traceUsage=false
