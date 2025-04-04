@@ -9,29 +9,27 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      WORKING_DIR: ./project-root 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (Forced)
         uses: actions/checkout@v4
         with:
           ref: test
           fetch-depth: 0
-          path: project-root 
+          clean: false  
 
-      - name: Verify Files
+      - name: Find POM File (Nuclear Verification)
         run: |
-          echo "=== WORKING DIRECTORY ==="
-          pwd
-          echo "=== FULL FILE STRUCTURE ==="
+          echo "=== FULL REPO STRUCTURE ==="
           find . -type f | sort
-          echo "=== POM VERIFICATION ==="
-          if [ -f "project-root/pom.xml" ]; then
-            echo "POM EXISTS at project-root/pom.xml"
-            ls -la project-root/
-          else
-            echo "::error::POM NOT FOUND!"
+          echo "=== POM FILE CHECK ==="
+          if [ ! -f "pom.xml" ]; then
+            echo "::error::CRITICAL: pom.xml is MISSING from root directory!"
+            echo "Current files in root:"
+            ls -la
             exit 1
+          else
+            echo "POM FOUND - Contents:"
+            head -n 10 pom.xml
           fi
 
       - name: Setup Java
@@ -40,10 +38,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        working-directory: project-root  
-        run: mvn clean install -DskipTests -B -e
+      - name: Build with Maven (Absolute Path)
+        run: |
+          echo "Current directory: $(pwd)"
+          mvn -f pom.xml clean install -DskipTests -B -e -X
 
       - name: Run Tests
-        working-directory: project-root  
         run: mvn test -B
