@@ -40,7 +40,6 @@ public class MenuController extends MenuBar
 	private Menu viewMenu;
 	private Menu helpMenu;
 
-	//getters and setters for frame and presentation?
 	public MenuController(Frame frame, Presentation presentation)
 	{
 		this.frame = frame;

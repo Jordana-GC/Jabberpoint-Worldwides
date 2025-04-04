@@ -32,28 +32,31 @@ public class SaveFile extends Command
         chooser.setDialogTitle("Save Presentation");
         chooser.setFileFilter(new FileNameExtensionFilter("XML Files", "xml"));
 
-        // Suggest default filename
         String defaultName = presentation.getTitle() != null ?
                 presentation.getTitle() + ".xml" : "presentation.xml";
         chooser.setSelectedFile(new File(defaultName));
 
-        if (chooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+        if (chooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION)
+        {
             File file = chooser.getSelectedFile();
             String path = file.getAbsolutePath();
 
-            // Ensure .xml extension
-            if (!path.toLowerCase().endsWith(".xml")) {
+            if (!path.toLowerCase().endsWith(".xml"))
+            {
                 path += ".xml";
                 file = new File(path);
             }
 
-            try {
+            try
+            {
                 new XMLAccessor().saveFile(presentation, path);
-                this.currentPath = path; // Remember save location
+                this.currentPath = path;
+
                 JOptionPane.showMessageDialog(frame,
                         "Saved successfully to:\n" + path,
                         "Success", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 JOptionPane.showMessageDialog(frame,
                         "Failed to save:\n" + e.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -61,7 +64,8 @@ public class SaveFile extends Command
         }
     }
 
-    public String getCurrentPath() {
+    public String getCurrentPath()
+    {
         return this.currentPath;
     }
 }
