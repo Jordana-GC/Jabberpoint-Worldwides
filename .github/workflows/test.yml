@@ -10,28 +10,27 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      WORKING_DIR: ./project-root
+      WORKING_DIR: ./project-root 
     steps:
-      - name: Checkout with Debug
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           ref: test
           fetch-depth: 0
-          path: ${{ env.WORKING_DIR }}
-        
-      - name: Nuclear File Verification
+          path: project-root 
+
+      - name: Verify Files
         run: |
-          echo "=== FULL DIRECTORY TREE ==="
-          find ${{ env.WORKING_DIR }} -type d | sort
+          echo "=== WORKING DIRECTORY ==="
+          pwd
+          echo "=== FULL FILE STRUCTURE ==="
+          find . -type f | sort
           echo "=== POM VERIFICATION ==="
-          if [ -f "${{ env.WORKING_DIR }}/pom.xml" ]; then
-            echo "POM FOUND at ${{ env.WORKING_DIR }}/pom.xml"
-            echo "POM CONTENTS:"
-            head -n 20 "${{ env.WORKING_DIR }}/pom.xml"
+          if [ -f "project-root/pom.xml" ]; then
+            echo "POM EXISTS at project-root/pom.xml"
+            ls -la project-root/
           else
-            echo "::error::POM NOT FOUND IN ${{ env.WORKING_DIR }}!"
-            echo "Current files:"
-            ls -la ${{ env.WORKING_DIR }}
+            echo "::error::POM NOT FOUND!"
             exit 1
           fi
 
@@ -41,14 +40,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven (Debug Mode)
-        working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          echo "=== MAVEN DEBUG ==="
-          mvn help:effective-pom -Doutput=effective-pom.xml
-          head -n 20 effective-pom.xml
-          mvn clean install -DskipTests -X
+      - name: Build with Maven
+        working-directory: project-root  
+        run: mvn clean install -DskipTests -B -e
 
       - name: Run Tests
-        working-directory: ${{ env.WORKING_DIR }}
-        run: mvn test
+        working-directory: project-root  
+        run: mvn test -B
