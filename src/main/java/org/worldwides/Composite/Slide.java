@@ -103,7 +103,7 @@ public class Slide extends SlideItem{
 		for (int number=0; number<getSize(); number++)
 		{
 			slideItem = getSlideItems().elementAt(number);
-
+			styleLevel = slideItem.getLevel();
 			slideItem.draw(x, y, scale, graphics, styleLevel, observer);
 
 			y += slideItem.getBoundingBox(graphics, observer, scale, styleLevel).height;

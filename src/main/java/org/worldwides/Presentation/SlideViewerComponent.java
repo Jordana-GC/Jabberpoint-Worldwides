@@ -1,6 +1,7 @@
 package org.worldwides.Presentation;
 
 import org.worldwides.Composite.Slide;
+import org.worldwides.Composite.SlideItem;
 
 import java.awt.Color;
 import java.awt.Font;
