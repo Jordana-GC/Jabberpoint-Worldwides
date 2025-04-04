@@ -1,17 +1,14 @@
 name: Test CI
 
 on:
-  push:
-    branches:
-      - test
-      
   workflow_run:
     workflows: ["Auto-Merge Dev to Test"]
     types: [completed]
-    branches: [test]
+    branches: [dev]
 
 jobs:
   test:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.outputs.was_merged == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
