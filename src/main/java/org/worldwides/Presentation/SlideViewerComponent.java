@@ -80,12 +80,12 @@ public class SlideViewerComponent extends JComponent {
 
 		graphics.setFont(this.labelFont);
 		graphics.setColor(COLOR);
-		graphics.drawString("Composite.Slide " + (1 + this.presentation.getSlideNumber()) + " of " + this.presentation.getSize(), X_POS, Y_POS);
+		graphics.drawString("Slide " + (1 + this.presentation.getSlideNumber()) + " of " + this.presentation.getSize(), X_POS, Y_POS);
 
 		Rectangle area = new Rectangle(0, Y_POS, getWidth(), (getHeight() - Y_POS));
 
 		float scale = Math.min((float) area.width / Slide.WIDTH, (float) area.height / Slide.HEIGHT);
 
-		this.slide.draw(area.x, area.y, scale, graphics, this.slide.getLevel(), this);
+		this.slide.draw(area.x, area.y, scale, graphics, this);
 	}
 }

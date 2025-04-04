@@ -1,12 +1,13 @@
 package org.worldwides.Command.MenuController;
 
-import org.worldwides.Accessor.Accessor;
 import org.worldwides.Accessor.XMLAccessor;
 import org.worldwides.Command.Command;
 import org.worldwides.Presentation.Presentation;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class SaveFile extends Command
@@ -16,6 +17,7 @@ public class SaveFile extends Command
     protected static final String SAVE_ERROR = "Save Error";
 
     private final Frame frame;
+    private String currentPath;
 
     public SaveFile(Presentation presentation, Frame frame)
     {
@@ -26,16 +28,40 @@ public class SaveFile extends Command
     @Override
     public void execute()
     {
-        Accessor xmlAccessor = new XMLAccessor();
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Save Presentation");
+        chooser.setFileFilter(new FileNameExtensionFilter("XML Files", "xml"));
 
-        try
-        {
-            xmlAccessor.saveFile(this.presentation, SAVE_FILE);
+        // Suggest default filename
+        String defaultName = presentation.getTitle() != null ?
+                presentation.getTitle() + ".xml" : "presentation.xml";
+        chooser.setSelectedFile(new File(defaultName));
+
+        if (chooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            String path = file.getAbsolutePath();
+
+            // Ensure .xml extension
+            if (!path.toLowerCase().endsWith(".xml")) {
+                path += ".xml";
+                file = new File(path);
+            }
+
+            try {
+                new XMLAccessor().saveFile(presentation, path);
+                this.currentPath = path; // Remember save location
+                JOptionPane.showMessageDialog(frame,
+                        "Saved successfully to:\n" + path,
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(frame,
+                        "Failed to save:\n" + e.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        catch (IOException exc)
-        {
-            JOptionPane.showMessageDialog(this.frame, IO_EXC + exc,
-                    SAVE_ERROR, JOptionPane.ERROR_MESSAGE);
-        }
+    }
+
+    public String getCurrentPath() {
+        return this.currentPath;
     }
 }
