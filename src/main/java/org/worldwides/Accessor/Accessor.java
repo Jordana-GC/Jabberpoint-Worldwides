@@ -1,6 +1,6 @@
-package Accessor;
+package org.worldwides.Accessor;
 
-import Presentation.Presentation;
+import org.worldwides.Presentation.Presentation;
 
 import java.io.IOException;
 

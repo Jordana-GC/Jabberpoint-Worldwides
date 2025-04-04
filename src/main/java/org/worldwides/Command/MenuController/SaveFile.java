@@ -1,9 +1,9 @@
-package Command.MenuController;
+package org.worldwides.Command.MenuController;
 
-import Accessor.Accessor;
-import Accessor.XMLAccessor;
-import Command.Command;
-import Presentation.Presentation;
+import org.worldwides.Accessor.Accessor;
+import org.worldwides.Accessor.XMLAccessor;
+import org.worldwides.Command.Command;
+import org.worldwides.Presentation.Presentation;
 
 import javax.swing.*;
 import java.awt.*;

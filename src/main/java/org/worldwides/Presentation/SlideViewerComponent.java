@@ -1,6 +1,6 @@
-package Presentation;
+package org.worldwides.Presentation;
 
-import Composite.Slide;
+import org.worldwides.Composite.Slide;
 
 import java.awt.Color;
 import java.awt.Font;

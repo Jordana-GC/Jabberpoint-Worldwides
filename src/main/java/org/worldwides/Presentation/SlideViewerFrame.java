@@ -1,7 +1,8 @@
-package Presentation;
+package org.worldwides.Presentation;
 
-import Command.KeyController.KeyController;
-import Command.MenuController.MenuController;
+import org.worldwides.Command.KeyController.KeyController;
+import org.worldwides.Command.MenuController.MenuController;
+
 
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;

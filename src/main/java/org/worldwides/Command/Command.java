@@ -1,6 +1,6 @@
-package Command;
+package org.worldwides.Command;
 
-import Presentation.Presentation;
+import org.worldwides.Presentation.Presentation;
 
 public abstract class Command
 {

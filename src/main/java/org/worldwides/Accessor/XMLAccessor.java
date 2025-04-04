@@ -1,4 +1,4 @@
-package Accessor;
+package org.worldwides.Accessor;
 
 import java.util.Vector;
 import java.io.File;
@@ -10,11 +10,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import Composite.BitmapItem;
-import Composite.Slide;
-import Composite.SlideItem;
-import Composite.TextItem;
-import Presentation.Presentation;
+import org.worldwides.Composite.BitmapItem;
+import org.worldwides.Composite.Slide;
+import org.worldwides.Composite.SlideItem;
+import org.worldwides.Composite.TextItem;
+import org.worldwides.Presentation.Presentation;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -60,6 +60,7 @@ public class XMLAccessor extends Accessor {
     	
     }
 
+	@Override
 	public void loadFile(Presentation presentation, String filename) throws IOException
 	{
 		int slideNumber = 0;

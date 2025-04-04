@@ -1,7 +1,7 @@
-package FactoryMethod;
+package org.worldwides.FactoryMethod;
 
-import Composite.SlideItem;
-import Composite.TextItem;
+import org.worldwides.Composite.SlideItem;
+import org.worldwides.Composite.TextItem;
 
 public class TextItemFactory implements SlideItemFactory
 {
