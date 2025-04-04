@@ -37,12 +37,9 @@ public class BitmapItemTest
     @Test
     void testConstructorAndGetName_valid_shouldReturnName()
     {
-        BitmapItem item = new BitmapItem(1, "terribleTerrible.jpg")
-        {
-            { this.bufferedImage = dummyImage; }
-        };
+        BitmapItem item = new BitmapItem(1, "src/test/resources/terribleTerrible.png");
 
-        assertEquals("terribleTerrible.jpg", item.getName());
+        assertEquals("src/test/resources/terribleTerrible.png", item.getName());
     }
 
     @Test
@@ -54,7 +51,7 @@ public class BitmapItemTest
             when(this.styleMock.getIndent()).thenReturn(10);
             when(this.styleMock.getLeading()).thenReturn(20);
 
-            BitmapItem item = new BitmapItem(2, "terribleTerrible.jpg")
+            BitmapItem item = new BitmapItem(2, "src/test/resources/terribleTerrible.png")
             {
                 { this.bufferedImage = dummyImage; }
             };
@@ -77,7 +74,7 @@ public class BitmapItemTest
             when(this.styleMock.getIndent()).thenReturn(5);
             when(this.styleMock.getLeading()).thenReturn(15);
 
-            BitmapItem item = new BitmapItem(3, "terribleTerrible.jpg")
+            BitmapItem item = new BitmapItem(3, "src/test/resources/terribleTerrible.png")
             {
                 { this.bufferedImage = dummyImage; }
             };
@@ -98,11 +95,11 @@ public class BitmapItemTest
     @Test
     void testToString_valid_shouldPass()
     {
-        BitmapItem item = new BitmapItem(4, "terribleTerrible.jpg")
+        BitmapItem item = new BitmapItem(4, "src/test/resources/terribleTerrible.png")
         {
             { this.bufferedImage = dummyImage; }
         };
 
-        assertEquals("BitmapItem[4,terribleTerrible.jpg]", item.toString());
+        assertEquals("BitmapItem[4,src/test/resources/terribleTerrible.png]", item.toString());
     }
 }
