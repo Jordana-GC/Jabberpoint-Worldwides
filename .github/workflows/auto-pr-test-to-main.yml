@@ -4,15 +4,11 @@ on:
   workflow_run:
     workflows: ["Test CI"]
     types: [completed]
-    branches: [test]  
+    branches: [test]
 
 jobs:
   create-pull-request:
-    if: >-
-      ${{ 
-        github.event.workflow_run.conclusion == 'success' &&
-        github.event.workflow_run.event == 'workflow_run'
-      }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -29,13 +25,12 @@ jobs:
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
           base: main  
-          head: test  
+          head: test
           title: "Auto PR: Merge Test into Main"
           body: |
             **Automated PR - Test Results**  
             All tests passed in [Test CI](${{ github.event.workflow_run.html_url }})  
-            Generated at: ${{ github.event.workflow_run.updated_at }}  
+            Generated at: ${{ github.event.workflow_run.updated_at }}
           labels: automated, test-passed
           reviewers: Faziee,Jordana-GC
           assignees: Faziee,Jordana-GC
-          draft: false
