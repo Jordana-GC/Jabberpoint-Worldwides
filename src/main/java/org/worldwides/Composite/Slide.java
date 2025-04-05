@@ -16,11 +16,12 @@ import java.util.Vector;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
-public class Slide extends SlideItem{
+public class Slide extends SlideItem
+{
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	private String title;
-	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
+	protected Vector<SlideItem> items;
 
 	public Slide(String title, int level)
 	{
@@ -29,7 +30,6 @@ public class Slide extends SlideItem{
         this.title = title;
 	}
 
-	// Voeg een Composite.SlideItem toe
 	public void append(SlideItem item)
 	{
 		if (item == null)
@@ -46,31 +46,26 @@ public class Slide extends SlideItem{
 		this.items.add(new TextItem(level, message));
 	}
 
-	// geef de titel van de slide
 	public String getTitle()
 	{
 		return this.title;
 	}
 
-	// verander de titel van de slide
 	public void setTitle(String newTitle)
 	{
 		this.title = newTitle;
 	}
 
-	// geef het betreffende Composite.SlideItem
 	public SlideItem getSlideItem(int number)
 	{
 		return this.items.elementAt(number);//removed redundant cast
 	}
 
-	// geef alle SlideItems in een Vector
 	public Vector<SlideItem> getSlideItems()
 	{
 		return this.items;
 	}
 
-	// geef de afmeting van de Composite.Slide
 	public int getSize()
 	{
 		return this.items.size();

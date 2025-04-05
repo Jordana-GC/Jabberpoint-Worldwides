@@ -31,9 +31,7 @@ public class BitmapItem extends SlideItem
 	BufferedImage bufferedImage;
 	private String imageName;
 
-
 	// level represents the item level; name for the name of the file containing the image
-
 	public BitmapItem(int level, String imageName)
 	{
 		super(level);

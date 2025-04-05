@@ -16,7 +16,14 @@ import java.awt.image.ImageObserver;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
 */
 
-public abstract class SlideItem {
+/**
+ * Base class for all slide content items.
+ * (SRP: Only handles slide item rendering concerns)
+ * (OCP: New item types can extend without modifying base)
+ */
+
+public abstract class SlideItem
+{
 	private int level;
 
 

@@ -17,7 +17,8 @@ import java.awt.Font;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
-public class Style {
+public class Style
+{
 
 	private int indent;
 	private Color color;

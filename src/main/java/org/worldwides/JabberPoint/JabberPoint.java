@@ -23,7 +23,8 @@ import java.io.IOException;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
-public class JabberPoint {
+public class JabberPoint
+{
 	protected static final String IOERR = "IO Error: ";
 	protected static final String JABERR = "Jabberpoint Error ";
 	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
@@ -38,9 +39,10 @@ public class JabberPoint {
 		try
 		{
 			if (argv.length == 0)
-			{ // een demo presentatie
+			{
 				Accessor.getDemoAccessor().loadFile(presentation, "");
-			} else
+			}
+			else
 			{
 				new XMLAccessor().loadFile(presentation, argv[0]);
 			}

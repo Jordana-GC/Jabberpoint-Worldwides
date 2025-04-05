@@ -6,6 +6,13 @@ import org.worldwides.Presentation.Presentation;
  * @author Fajar Butt & Jordana Guilbride Capela
  */
 
+/**
+ * Encapsulates presentation commands.
+ * (OCP: New commands can be added without modifying existing code)
+ * (DIP: MenuController depends on Command abstraction)
+ * (LSP: All subclasses are substitutable for Command)
+ */
+
 public abstract class Command
 {
     protected Presentation presentation;

@@ -18,6 +18,12 @@ import java.io.IOException;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
+/**
+ * Abstract base for file access operations.
+ * (OCP: Open for extension via new Accessor implementations)
+ * (DIP: High-level Presentation depends on this abstraction)
+ */
+
 public abstract class Accessor
 {
 	public Accessor()
@@ -26,7 +32,7 @@ public abstract class Accessor
 
 	public static Accessor getDemoAccessor()
 	{
-		return new DemoPresentation();
+		return new DemoPresentation(); // Demonstrating DIP
 	}
 
 	public abstract void loadFile(Presentation presentation, String fileName) throws IOException;
