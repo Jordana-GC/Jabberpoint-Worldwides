@@ -16,7 +16,6 @@ import java.io.IOException;
 
 public class SaveFile extends Command
 {
-
     private final Frame frame;
     private String currentPath;
 

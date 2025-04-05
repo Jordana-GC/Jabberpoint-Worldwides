@@ -23,8 +23,8 @@ import javax.swing.JFrame;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
-public class SlideViewerComponent extends JComponent {
-		
+public class SlideViewerComponent extends JComponent
+{
 	private Slide slide;
 	private Font labelFont; // removed redundant initializer
 	private Presentation presentation; // removed redundant initializer

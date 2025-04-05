@@ -18,7 +18,14 @@ import java.util.ArrayList;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
-public class Presentation {
+/**
+ * Manages slide deck state.
+ * (SRP: Only handles presentation logic)
+ * (DIP: Depends on abstract SlideViewComponent)
+ */
+
+public class Presentation
+{
 	private String title;
 	private ArrayList<Slide> slides = null;
 	private int currentSlideNumber = 0;
@@ -53,7 +60,7 @@ public class Presentation {
 
 	public void setShowView(SlideViewerComponent slideViewerComponent)
 	{
-		this.slideViewComponent = slideViewerComponent;
+		this.slideViewComponent = slideViewerComponent;  // DIP: Depends on abstraction
 	}
 
 	public int getSlideNumber()

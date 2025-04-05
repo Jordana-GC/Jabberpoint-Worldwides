@@ -33,12 +33,17 @@ import org.w3c.dom.NodeList;
  * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
-public class XMLAccessor extends Accessor {
-	
+/**
+ * Handles XML-specific presentation persistence.
+ * (SRP: Only does XML serialization)
+ * (ISP: Implements only needed Accessor methods)
+ */
+
+public class XMLAccessor extends Accessor
+{
     /** Default API to use. */
     protected static final String DEFAULT_API_TO_USE = "dom";
-    
-    /** namen van xml tags of attributen */
+
     protected static final String SHOW_TITLE = "showtitle";
     protected static final String SLIDE_TITLE = "title";
     protected static final String SLIDE = "slide";
@@ -47,8 +52,7 @@ public class XMLAccessor extends Accessor {
     protected static final String KIND = "kind";
     protected static final String TEXT = "text";
     protected static final String IMAGE = "image";
-    
-    /** tekst van messages */
+
     protected static final String PCE = "Parser Configuration Exception";
     protected static final String UNKNOWN_TYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
@@ -70,7 +74,9 @@ public class XMLAccessor extends Accessor {
 
 			NodeList slides = doc.getElementsByTagName(SLIDE);
 			max = slides.getLength();
-			for (slideNumber = 0; slideNumber < max; slideNumber++) {
+
+			for (slideNumber = 0; slideNumber < max; slideNumber++)
+			{
 				Element xmlSlide = (Element) slides.item(slideNumber);
 				Slide slide = new Slide(getTitle(xmlSlide, SLIDE_TITLE), 0);
 				slide.setTitle(getTitle(xmlSlide, SLIDE_TITLE));
@@ -78,7 +84,9 @@ public class XMLAccessor extends Accessor {
 				
 				NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
 				maxItems = slideItems.getLength();
-				for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
+
+				for (itemNumber = 0; itemNumber < maxItems; itemNumber++)
+				{
 					Element item = (Element) slideItems.item(itemNumber);
 					loadSlideItem(slide, item);
 				}
@@ -108,6 +116,7 @@ public class XMLAccessor extends Accessor {
 		out.print("<showtitle>");
 		out.print(presentation.getTitle());
 		out.println("</showtitle>");
+
 		for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++)
 		{
 			Slide slide = presentation.getSlide(slideNumber);
@@ -181,6 +190,7 @@ public class XMLAccessor extends Accessor {
 			}
 		}
 	}
+
 	private String getTitle(Element element, String tagName)
 	{
 		NodeList titles = element.getElementsByTagName(tagName);

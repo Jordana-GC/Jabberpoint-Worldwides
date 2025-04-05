@@ -6,8 +6,15 @@ import java.awt.*;
  * @author Fajar Butt & Jordana Guilbride Capela
  */
 
+/**
+ * Creates style objects based on level.
+ * (SRP: Only handles style creation)
+ * (OCP: New styles can be added via new case)
+ */
+
 public class StyleFactory
-{//Was changed from interface to concrete class with a static method to allow for integration with composite pattern
+{
+    //Was changed from interface to concrete class with a static method to allow for integration with composite pattern
     public static Style createStyle(int level)
     {
         return switch (level)
