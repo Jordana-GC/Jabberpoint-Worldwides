@@ -2,6 +2,10 @@ package org.worldwides.FactoryMethod;
 
 import java.awt.*;
 
+/** FactoryMethod.StyleFactory, This is the styleFactory, it allows for the modular creation of styles using the factory method design pattern
+ * @author Fajar Butt & Jordana Guilbride Capela
+ */
+
 public class StyleFactory
 {//Was changed from interface to concrete class with a static method to allow for integration with composite pattern
     public static Style createStyle(int level)

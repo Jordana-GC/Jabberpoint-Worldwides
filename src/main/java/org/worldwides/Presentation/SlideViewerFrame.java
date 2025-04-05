@@ -14,6 +14,7 @@ import javax.swing.JFrame;
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
 public class SlideViewerFrame extends JFrame
@@ -33,8 +34,7 @@ public class SlideViewerFrame extends JFrame
 		setupWindow(slideViewerComponent, presentation);
 	}
 
-	public void setupWindow(SlideViewerComponent
-									slideViewerComponent, Presentation presentation)
+	public void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation)
 	{
 		setTitle(JAB_TITLE);
 		addWindowListener(new WindowAdapter()

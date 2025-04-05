@@ -3,6 +3,10 @@ package org.worldwides.Presentation;
 import javax.swing.*;
 import java.awt.*;
 
+/** Presentation.StyleChooser, This is the styleChooser, it allows users to pick a style type when creating a new Presentation
+ * @author Fajar Butt & Jordana Guilbride Capela
+ */
+
 public class StyleChooser
 {
     public static String showStyleDialog(Frame frame)

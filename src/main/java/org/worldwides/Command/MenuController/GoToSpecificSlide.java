@@ -5,6 +5,10 @@ import org.worldwides.Presentation.Presentation;
 
 import javax.swing.*;
 
+/** Command.GoToSpecificSlide, changes to a specific slide through the menu
+ * @author Fajar Butt & Jordana Guilbride Capela
+ */
+
 public class GoToSpecificSlide extends Command
 {
     protected static final String PAGE_NR = "Page number?";

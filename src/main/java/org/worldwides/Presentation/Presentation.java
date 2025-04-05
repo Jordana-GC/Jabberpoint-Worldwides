@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
 public class Presentation {
@@ -69,7 +70,8 @@ public class Presentation {
 		}
 	}
 
-	public void prevSlide() {
+	public void prevSlide()
+	{
 		if (this.currentSlideNumber > 0)
 		{
 			setSlideNumber(this.currentSlideNumber - 1);
@@ -112,7 +114,7 @@ public class Presentation {
 
 	public Slide getCurrentSlide()
 	{
-		return getSlide(currentSlideNumber);
+		return getSlide(this.currentSlideNumber);
 	}
 
 	public void exit(int n)

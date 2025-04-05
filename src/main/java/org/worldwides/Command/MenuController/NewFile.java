@@ -1,21 +1,17 @@
 package org.worldwides.Command.MenuController;
 
 import org.worldwides.Command.Command;
-import org.worldwides.Presentation.Presentation;
 import org.worldwides.Composite.Slide;
 import org.worldwides.Composite.TextItem;
+import org.worldwides.Presentation.Presentation;
 import org.worldwides.Presentation.StyleChooser;
 
-
-import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 
 /**
  * <p>This is the NewFile Command, it's used in MenuController</p>
- *
  * @author Fajar Butt & Jordana Guilbride Capela
- * @version 0.0 2025/03/00
  */
 
 public class NewFile extends Command
@@ -35,7 +31,7 @@ public class NewFile extends Command
         if (chosenStyle == null) return;
 
         this.presentation.clear();
-        presentation.setTitle("New Presentation - " + chosenStyle);
+        this.presentation.setTitle("New Presentation - " + chosenStyle);
 
         switch (chosenStyle)
         {
@@ -50,24 +46,26 @@ public class NewFile extends Command
                 break;
         }
 
-        presentation.setSlideNumber(0);
-        frame.repaint();
+        this.presentation.setSlideNumber(0);
+        this.frame.repaint();
     }
 
-    private void createProfessionalStyle() {
+    private void createProfessionalStyle()
+    {
 
         Slide slide = new Slide("Professional Style", 1);
         slide.append(new TextItem(1, "Professionalism is slay"));
         slide.append(new TextItem(3, "Date: " + LocalDate.now()));
-        presentation.append(slide);
+        this.presentation.append(slide);
     }
 
-    private void createCreativeStyle() {
+    private void createCreativeStyle()
+    {
 
         Slide slide = new Slide("Creative Style", 0);
         slide.append(new TextItem(0, "Let your creativity flow"));
         slide.append(new TextItem(1, "Date: " + LocalDate.now()));
-        presentation.append(slide);
+        this.presentation.append(slide);
     }
 
     private void createAcademicStyle()
@@ -75,6 +73,6 @@ public class NewFile extends Command
         Slide slide = new Slide("Academic Style", 2);
         slide.append(new TextItem(2, "Be an Academic Weapon!"));
         slide.append(new TextItem(4, "Date: " + LocalDate.now()));
-        presentation.append(slide);
+        this.presentation.append(slide);
     }
 }
