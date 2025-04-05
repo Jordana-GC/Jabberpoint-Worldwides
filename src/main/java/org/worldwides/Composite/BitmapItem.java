@@ -23,6 +23,7 @@ import java.io.IOException;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
 */
 
 public class BitmapItem extends SlideItem
@@ -50,7 +51,7 @@ public class BitmapItem extends SlideItem
 	// geef de bestandsnaam van de afbeelding
 	public String getName()
 	{
-		return imageName;
+		return this.imageName;
 	}
 
 	@Override
@@ -68,11 +69,11 @@ public class BitmapItem extends SlideItem
 
 		int width = x + (int) (style.getIndent() * scale);
 		int height = y + (int) (style.getLeading() * scale);
-		graphics.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale), (int) (bufferedImage.getHeight(observer)*scale), observer);
+		graphics.drawImage(this.bufferedImage, width, height,(int) (this.bufferedImage.getWidth(observer)*scale), (int) (this.bufferedImage.getHeight(observer)*scale), observer);
 	}
 
 	public String toString()
 	{
-		return "BitmapItem[" + getLevel() + "," + imageName + "]";
+		return "BitmapItem[" + getLevel() + "," + this.imageName + "]";
 	}
 }

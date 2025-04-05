@@ -15,20 +15,18 @@ import java.io.IOException;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
 public abstract class Accessor
 {
-	public static final String DEMO_NAME = "Demonstration presentation";
-	public static final String DEFAULT_EXTENSION = ".xml";
+	public Accessor()
+	{
+	}
 
 	public static Accessor getDemoAccessor()
 	{
 		return new DemoPresentation();
-	}
-
-	public Accessor()
-	{
 	}
 
 	public abstract void loadFile(Presentation presentation, String fileName) throws IOException;

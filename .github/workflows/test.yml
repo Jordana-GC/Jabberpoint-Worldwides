@@ -1,33 +1,37 @@
 name: Test CI
 
 on:
-  workflow_dispatch:
   workflow_run:
     workflows: ["Auto-Merge Dev to Test"]
     types: [completed]
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository (Forced)
+      - name: Checkout Test Branch
         uses: actions/checkout@v4
         with:
           ref: test
           fetch-depth: 0
-          clean: false  
+          clean: true
 
-      - name: Find POM File (Nuclear Verification)
+      - name: Verify POM
         run: |
-          echo "=== FULL REPO STRUCTURE ==="
-          find . -type f | sort
-          echo "=== POM FILE CHECK ==="
           if [ ! -f "pom.xml" ]; then
-            echo "::error::CRITICAL: pom.xml is MISSING from root directory!"
-            echo "Current files in root:"
-            ls -la
+            echo "::error::pom.xml missing!"
             exit 1
-          else
-            echo "POM FOUND - Contents:"
-            head -n 10 pom.xml
           fi
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn clean install -DskipTests -B
+
+      - name: Run Tests
+        run: mvn test -B

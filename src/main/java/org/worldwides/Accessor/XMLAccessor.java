@@ -30,6 +30,7 @@ import org.w3c.dom.NodeList;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
 public class XMLAccessor extends Accessor {
@@ -51,14 +52,6 @@ public class XMLAccessor extends Accessor {
     protected static final String PCE = "Parser Configuration Exception";
     protected static final String UNKNOWN_TYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
-    
-    
-    private String getTitle(Element element, String tagName)
-	{
-    	NodeList titles = element.getElementsByTagName(tagName);
-    	return titles.item(0).getTextContent();
-    	
-    }
 
 	@Override
 	public void loadFile(Presentation presentation, String filename) throws IOException
@@ -103,41 +96,6 @@ public class XMLAccessor extends Accessor {
 		{
 			System.err.println(PCE);
 		}	
-	}
-
-	protected void loadSlideItem(Slide slide, Element item)
-	{
-		int level = 1;
-		NamedNodeMap attributes = item.getAttributes();
-		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
-
-		if (leveltext != null)
-		{
-			try
-			{
-				level = Integer.parseInt(leveltext);
-			}
-			catch(NumberFormatException x) {
-				System.err.println(NFE);
-			}
-		}
-
-		String type = attributes.getNamedItem(KIND).getTextContent();
-		if (TEXT.equals(type)) {
-			slide.append(new TextItem(level, item.getTextContent()));
-		}
-
-		else
-		{
-			if (IMAGE.equals(type))
-			{
-				slide.append(new BitmapItem(level, item.getTextContent()));
-			}
-			else
-			{
-				System.err.println(UNKNOWN_TYPE);
-			}
-		}
 	}
 
 	public void saveFile(Presentation presentation, String filename) throws IOException
@@ -187,5 +145,46 @@ public class XMLAccessor extends Accessor {
 		}
 		out.println("</presentation>");
 		out.close();
+	}
+
+	protected void loadSlideItem(Slide slide, Element item)
+	{
+		int level = 1;
+		NamedNodeMap attributes = item.getAttributes();
+		String levelText = attributes.getNamedItem(LEVEL).getTextContent();
+
+		if (levelText != null)
+		{
+			try
+			{
+				level = Integer.parseInt(levelText);
+			}
+			catch(NumberFormatException x) {
+				System.err.println(NFE);
+			}
+		}
+
+		String type = attributes.getNamedItem(KIND).getTextContent();
+		if (TEXT.equals(type)) {
+			slide.append(new TextItem(level, item.getTextContent()));
+		}
+
+		else
+		{
+			if (IMAGE.equals(type))
+			{
+				slide.append(new BitmapItem(level, item.getTextContent()));
+			}
+			else
+			{
+				System.err.println(UNKNOWN_TYPE);
+			}
+		}
+	}
+	private String getTitle(Element element, String tagName)
+	{
+		NodeList titles = element.getElementsByTagName(tagName);
+		return titles.item(0).getTextContent();
+
 	}
 }
