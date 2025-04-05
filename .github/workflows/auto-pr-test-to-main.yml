@@ -8,7 +8,6 @@ on:
 
 jobs:
   create-pull-request:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,17 +19,23 @@ jobs:
         with:
           ref: test
 
+      - name: Debug Workflow Run
+        run: |
+          echo "Workflow Run JSON:"
+          echo '${{ toJson(github.event.workflow_run) }}' | jq .
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.TOKEN_GITHUB }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: main  
-          head: test
+          head: test  
           title: "Auto PR: Merge Test into Main"
           body: |
             **Automated PR - Test Results**  
             All tests passed in [Test CI](${{ github.event.workflow_run.html_url }})  
-            Generated at: ${{ github.event.workflow_run.updated_at }}
+            Generated at: ${{ github.event.workflow_run.updated_at }}  
           labels: automated, test-passed
           reviewers: Faziee,Jordana-GC
           assignees: Faziee,Jordana-GC
+          draft: false
