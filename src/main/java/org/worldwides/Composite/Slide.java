@@ -13,6 +13,7 @@ import java.util.Vector;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2025/04/05 Fajar Butt & Jordana Guilbride Capela
  */
 
 public class Slide extends SlideItem{
@@ -21,7 +22,8 @@ public class Slide extends SlideItem{
 	private String title;
 	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
 
-	public Slide(String title, int level) {
+	public Slide(String title, int level)
+	{
         super(level);
 		this.items = new Vector<>();
         this.title = title;
@@ -34,6 +36,7 @@ public class Slide extends SlideItem{
 		{
 			throw new IllegalArgumentException("Can not be null");
 		}
+
 		this.items.addElement(item);
 	}
 
@@ -102,18 +105,13 @@ public class Slide extends SlideItem{
 		int height = boundingBox.height;
 
 		// Iterate over all slide items and update width & height
-		for (SlideItem item : this.items) {
+		for (SlideItem item : this.items)
+		{
 			Rectangle itemBox = item.getBoundingBox(graphics, observer, scale);
 			width = Math.max(width, itemBox.width);
 			height += itemBox.height;
 		}
 
 		return new Rectangle(0, 0, width, height);
-	}
-
-	// geef de schaal om de slide te kunnen tekenen
-	private float getScale(Rectangle area)
-	{
-		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
 	}
 }

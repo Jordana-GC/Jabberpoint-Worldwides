@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/** Command.OpenFile, opens the Demo Presentation
+ * @author Fajar Butt & Jordana Guilbride Capela
+ */
+
 public class OpenFile extends Command
 {
     protected static final String TEST_FILE = "test.xml";

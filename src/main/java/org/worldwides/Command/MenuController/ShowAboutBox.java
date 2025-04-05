@@ -6,6 +6,10 @@ import org.worldwides.Presentation.Presentation;
 
 import java.awt.*;
 
+/** Command.ShowAboutBox, shows the about box
+ * @author Fajar Butt & Jordana Guilbride Capela
+ */
+
 public class ShowAboutBox extends Command
 {
     private Frame frame;
